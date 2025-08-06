@@ -1,0 +1,105 @@
+% ----------------------- TODO ---------------------------
+
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Drag-Your-Motion Team Project}
+\newcommand{\TUTOR}{Chuqiao Li}
+\newcommand{\STUDENTA}{Leonie Rämisch, 6504373}
+\newcommand{\STUDENTC}{}
+\newcommand{\DEADLINE}{15.07.2024}
+% ----------------------- TODO ---------------------------
+
+\documentclass[a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{polynom}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{forloop}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{fancybox}
+\usepackage{tikz}
+
+\input kvmacros
+
+\setlength\parindent{0pt}
+
+
+%Größe der Ränder setzen
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{Tutor: \TUTOR}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\today}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage /\pageref*{LastPage}}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+  \begin{center}
+    {\Large Project Documentation}\\
+    {Stefan Bochinger, ???}\\
+    {Leonie Rämisch, 6504373}\\
+    {Helene Pfahler, ???}\\
+    {Joao, ???}\\
+    {Jan, ???}\\
+    {Jonathan, ???}
+  \end{center}
+}
+
+\begin{document}
+\header{Nr. \NUMBER}{\DEADLINE}
+
+
+% ----------------------- TODO ---------------------------
+% Hier werden die Aufgaben/Lösungen eingetragen:
+\subsection*{Leonie Rämisch}
+\subsubsection*{Introduction}
+In the following, I will explain how I contributed to our team project "Motion Style Transfer with Drag-Based Editing". For the first half of our project, the Aitviewer group worked closely together and had many meetings throughout each week in which we worked together on the tasks. 
+
+
+A small part which is still necessary for the project was the setup of our GitHub project and the forking from the original AitViewer GitHub.
+\subsubsection*{Method: export$\_$to$\_$AMASS}
+Another big topic was the export\_to\_AMASS-Method, which is one of the main interfaces between the user who changes a sequence and the model which is supposed to alter the whole sequence depending on the user changes. This was a lot of work since we had to change the exported format multiple times, but in the end the model accepted the final format.
+
+\subsubsection*{Keyframes}
+The functionality of export\_to\_AMASS was extended by keyframes. If a frame is changed by an user it will be marked as keyframe. The model uses this mark as a guide in order to adapt the whole sequence according to this specific or multiple keyframes.
+
+\subsubsection*{Example Inputs}
+Another necessary thing was the creation of the example inputs for the model. For this task, the Aitviewer group worked together and thought about different corner cases that need to be covered by an input. 
+
+My corner cases were chosen within the Female Running folder. An input with many changed frames was created, as well as an input with 5 consecutive changed frames that each have a different body part changed. Both inputs are supposed to be a stress test of the model to see how it handles these specific changes.\\
+
+From now on, we were able to split the work within the group much better since the key functionality that is needed for the project worked at this point. 
+
+\subsubsection*{Colour of Mesh and Skeleton}
+The goal was to make the change of the mesh and skeleton colour possible if a frame is marked as keyframe. I worked with Stefan on this task together.
+
+We added a base colour, a light green, that will be applied on the mannequin if a frame is marked as keyframe. This led to the bug that the colour wheel within the UI couldn't be used anymore to change the colour of the untouched frames but this bug was fixed and now the colour can be changed as pleased again.
+
+\subsubsection*{Prompts and their Export}
+In the end we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again but it works now just fine.
+
+\subsubsection*{How to continue}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
