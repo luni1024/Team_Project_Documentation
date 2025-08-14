@@ -54,7 +54,7 @@
     {\Large Project Documentation}\\
     {Stefan Bochinger, ???}\\
     {Leonie Rämisch, 6504373}\\
-    {Helene Pfahler, ???}\\
+    {Helene Pfahler, 6723015}\\
     {Joao, ???}\\
     {Jan, ???}\\
     {Jonathan, ???}
@@ -64,6 +64,10 @@
 \begin{document}
 \header{Nr. \NUMBER}{\DEADLINE}
 
+\subsection*{About this project}
+The objective of this project was to use artificial intelligence for drag-based editing of human animation. For this, we based our work on an interface called Aitviewer and a TCML cluster. 
+In order to work efficiently, we split into two sub-teams: a front-end group focused on the user interface and a back-end group dedicated to model data processing.  
+
 
 % ----------------------- TODO ---------------------------
 % Hier werden die Aufgaben/Lösungen eingetragen:
@@ -71,13 +75,13 @@
 \subsubsection*{Introduction}
 In the following, I will explain how I contributed to our team project "Motion Style Transfer with Drag-Based Editing". For the first half of our project, the Aitviewer group worked closely together and had many meetings throughout each week in which we worked together on the tasks. 
 
+A small necessary step for the project was the setup of our GitHub project and the forking from the original AitViewer GitHub.
 
-A small part which is still necessary for the project was the setup of our GitHub project and the forking from the original AitViewer GitHub.
 \subsubsection*{Method: export$\_$to$\_$AMASS}
 Another big topic was the export\_to\_AMASS-Method, which is one of the main interfaces between the user who changes a sequence and the model which is supposed to alter the whole sequence depending on the user changes. This was a lot of work since we had to change the exported format multiple times, but in the end the model accepted the final format.
 
 \subsubsection*{Keyframes}
-The functionality of export\_to\_AMASS was extended by keyframes. If a frame is changed by an user it will be marked as keyframe. The model uses this mark as a guide in order to adapt the whole sequence according to this specific or multiple keyframes.
+The functionality of export\_to\_AMASS was extended by keyframes. If a frame is changed by a user, it will be marked as keyframe. The model uses this mark as a guide in order to adapt the whole sequence according to this specific or multiple keyframes.
 
 \subsubsection*{Example Inputs}
 Another necessary thing was the creation of the example inputs for the model. For this task, the Aitviewer group worked together and thought about different corner cases that need to be covered by an input. 
@@ -92,14 +96,17 @@ The goal was to make the change of the mesh and skeleton colour possible if a fr
 We added a base colour, a light green, that will be applied on the mannequin if a frame is marked as keyframe. This led to the bug that the colour wheel within the UI couldn't be used anymore to change the colour of the untouched frames but this bug was fixed and now the colour can be changed as pleased again.
 
 \subsubsection*{Prompts and their Export}
-In the end we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again but it works now just fine.
+In the end we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again, but it works now just fine.  
 
-\subsubsection*{How to continue}
-- Interface between UI and model
-- Load exported sequences within the UI without having to use the terminal again
-- Work on keyframes: Deletion
-- Make use of Model indices: Show within UI what the model changed 
-- Further exploration on workings with prompts (?)
+
+\subsection*{Helene Pfahler}
+I contributed to this project by working on the Aitviewer as well. Additionally, I wrote reports for our weekly team meetings.
+
+\subsubsection*{... to be continued ...}  
+
+
+\subsection*{Possible future additions}
+Future improvements could include creating an automatic interface between the UI and the model to eliminate manual data transfer of the input/output of the model from/into the UI. The UI could also be modified to support the direct loading of exported sequences directly within Aitviewer, removing the need for terminal use. Another possible feature would include enabeling the deletion of keyframes within the UI. Additionally, in the future, one could work on showing the exact changes that the model applied within the UI, making use of the "model indices". Lastly, to make full use of the model's capacities, a further exploration of the prompts would be a possible future enhancement.
 
 \end{document}
 %%% Local Variables:
