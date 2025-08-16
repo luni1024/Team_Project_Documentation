@@ -102,7 +102,57 @@ In the end we brainstormed about possible prompt features and how we distribute 
 \subsection*{Helene Pfahler}
 I contributed to this project by working on the Aitviewer as well. Additionally, I wrote reports for our weekly team meetings.
 
-\subsubsection*{... to be continued ...}  
+\subsubsection*{... to be continued ...}
+
+
+\subsection*{Joao Espirito Santo Azevedo}
+\subsubsection*{Introduction}
+In this Section i aim to report my contributions to this teamproject.\\
+As hinted to in the previous Section, to work on this Teamproject, we chose to split up our Group into two: one part would be responsible for setting up/handling the AI model on the cluster, while the other would be responsible for handling the UI/the AItviewer Application.
+
+\subsubsection*{Personal difficulties}
+\quad For the first few weeks of this Project i was involved in the Model-Group, trying to set up the Cluster on which the AI should run.
+
+\quad I soon found this task was somewhat outside my area of expertise and chose to switch over to the UI team accordingly. Since Jan joined the Model team simultaneously and the UI Team was quite helpful in $"$showing me the ropes$"$ of the whole Aitviewer-Programme and -Code, i believe this transition was able to be handled significantly well.\\
+
+\quad A further difficulty i had in the course of this project were two weeks where my laptop had technical problems with its fans and i was forced to try and relocate all my university work and such onto my older, significantly slower, Laptop.
+
+\subsubsection*{Filename-Input Loader}
+\subsubsection*{--Context}
+\quad In the beginning of this project, if we wanted to load a specific Sequence/file with an animation onto the AItviewer, we had to change the corresponding String in the `load\_AMASS.py`-file. After a few weeks in the Model group, it became apparent that this was an annoying and inconvenient task/method.
+
+\quad After some planning/brainstorming among us i assumed the task to handle the creation of a similar python-file (a Loader, if you will), which allowed the user to specify which file should be loaded into the AItviewer at the time of executing the file.
+
+\subsubsection*{--how it works}
+\quad The file i worked on, `load\_export\_AMASS.py` relies heavily on the os-library of python.
+To use this Loader, it suffices to call the command `python load\_export\_AMASS.py` in the WSL/Linux Terminal while inside the `examples`-directory of the github repository.
+
+\todo[color=grey!8, inline, bordercolor=white]{This command should work in any directory with a serving python-environment, though, so long as the `load\_export\_AMASS.py`-part of it is expanded with the corresponding relative path to it. (i.e. `../examples/load\_export\_AMASS.py`).}
+
+\quad After a little while, the Loader should present an indexed list of the contents within the `export`-folder of the local repository. At the same time, the Loader should prompt the user to input a number specifying which of the files in this folder should be opened. Upon typing the number and pressing `Enter`, the Loader should "do its magic".
+
+\subsubsection*{--Possible future problems}
+If one desires to work on this Loader, possible problems that they might encounter might be due to:\\
+- Some paths not being relative(in relation to the current directory upon executing the Loader) or absolute(the complete path starting from the user's root-directory)\\
+- Missing/incorrect permissions of certain folders (if the user is not permitted to open a folder, it probably won't open, even with the Loader)\\
+- Incorrect Formats of the files to open (if the files are not stored in a format which the AItviewer is prepared to handle/understand, it won't work). - This problem is not fixable in the Loader, but rather probably in the `SMPLSequence.py`-file\\
+- Problems with indexing/handling the List of directories (Double-check how these are handled)\\
+
+\subsubsection*{Example Inputs}
+As mentioned before, the UI Team worked together to create a couple animations to use as corner-case tests for the software.\\
+The ones i created were all based on the `Female1 Walking` Animation:\\
+- One was multiple frames (ca. 15), spread evenly throughout the whole animation\\
+- One had no changes\\
+- And one had changes applied to only the 10th first and the 10th last frames\\
+
+\subsubsection*{Prompts}
+\subsubsection*{--Context}
+Many of the animations we were given to open in the AItviewer included prompts, which described the actions performed by the character and other information. Our task was to incorporate a way to view these in the Aitviewer.
+
+\subsubsection*{--How it works}
+The prompts are given as a multidimensional array. Every entry in its first dimension is a Prompt of the animation. These, in turn, are also arrays.\\
+To view these, we expanded the AItviewer Interface a bit further in the `SMPLSequence.py`-file by creating a respective interface therein. One can interact with it on the AItviewer by going onto the `Editor`-window, clicking on the `AMASS Running`-dropdown menu and then on its `Prompts`-Button.\\
+This Interface allows the user to individually view only the current Prompts as well as all Prompts. Additionally, the user is welcome to add or delete Prompts, and specify their Timespans.
 
 
 \subsection*{Possible future additions}
