@@ -123,7 +123,7 @@ The goal was to make the change of the mesh and skeleton colour possible if a fr
 We added a base colour, a light green, that will be applied on the mannequin if a frame is marked as keyframe. This led to the bug that the colour wheel within the UI couldn't be used anymore to change the colour of the untouched frames but this bug was fixed and now the colour can be changed as pleased again.
 
 \subsubsection*{Prompts and their Export}
-In the end, we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again, but it works now just fine.  
+In the end, we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method and from\_amass-Method needed to be changed again, but it works now just fine.  
 
 
 \subsection*{Helene Pfahler}
@@ -141,6 +141,9 @@ I created example files, working as input for the model. For this, I used data i
 
 \subsubsection*{View original motion}
 To further enhance the user interface, I added a new feature. It contains a button enabling the user to view the original, unedited motion directly within the Aitviewer. To make this work, a new state variable to track if you're currently viewing the edited or the original motion was added. If this variable is true, the position and orientation of the joints are set back to their unedited state. This also required the original joints to be included in the exported (and imported) files, so if a motion is edited multiple times, the original motion remains the same throughout.
+
+\subsubsection*{Usage of prompts}
+Because our sub-group was right on schedule, we were even able to add text prompts to our motion files. These prompts can now be viewed, added, and deleted directly within the UI. My contribution to this was editing the export\_to\_AMASS method so the saved files also contained the text prompts associated with this motion.
 
 \subsection*{Joao Espirito Santo Azevedo}
 \subsubsection*{Introduction}
@@ -179,13 +182,9 @@ The ones i created were all based on the `Female1 Walking` Animation. One of the
 Many of the animations we were given to open in the Aitviewer included prompts, which described the actions performed by the character as well as other information. Our task was to incorporate a way to view these in the Aitviewer.
 
 \subsubsection*{--How it works}
-The prompts are given as a multidimensional array. Every entry in its first dimension is a prompt of the animation. These, in turn, are also arrays.\\
-To view these, we expanded the Aitviewer interface a bit further in the `SMPLSequence.py`-file by creating a respective interface therein. One can interact with it on the Aitviewer by going onto the `Editor`-window, clicking on the `AMASS Running`-dropdown menu and then on its `Prompts`-Button.\\
-This interface allows the user to individually view only the current prompts as well as all prompts. Additionally, the user is welcome to add or delete prompts, and specify their timespans.
-
-\subsubsection*{Usage of prompts}
-Because our sub-group was right on schedule, we were even able to add text prompts to our motion files. These prompts can now be viewed, added, and deleted directly within the UI. My contribution to this was editing the export\_to\_AMASS method so the saved files also contained the text prompts associated with this motion.
-
+The prompts are given as a list. Every entry in this list is a prompt of the animation. These, in turn, are dictionaries, consisting of the prompt itself, its start time and its end time.\\
+To view these, we expanded the Aitviewer interface a bit further in the `smpl.py`-file by creating a respective interface therein. One can interact with it on the Aitviewer by going onto the `Editor`-window, clicking on the `AMASS Running`-dropdown menu and then on its `Prompts`-Button.\\
+This interface allows the user to individually view only the current prompts as well as all prompts. Additionally, the user is welcome to add or delete prompts, and specify their timespans. For that, I implemented `Delete` and `Add` buttons, a text box for entering new prompts and sliders for the starting and ending time.
 
 \section*{Possible future additions}
 Future improvements could include creating an automatic interface between the UI and the model to eliminate manual data transfer of the input/output of the model from/into the UI. The UI could also be modified to support the direct loading of exported sequences directly within Aitviewer, removing the need for terminal use. Another possible feature would include enabling the deletion of keyframes within the UI. Additionally, in the future, one could work on showing the exact changes that the model applied within the UI, making use of the "model indices", e.g. by also highlighting those frames in a different color. Lastly, to make full use of the model's capacities, a further exploration of the prompts on the model's side would be a possible future enhancement.
