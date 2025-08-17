@@ -64,13 +64,14 @@
 \begin{document}
 \header{Nr. \NUMBER}{\DEADLINE}
 
-\subsection*{About this project}
+\section*{About this project}
 The objective of this project was to use artificial intelligence for drag-based editing of human animation. For this, we based our work on an interface called Aitviewer and a TCML cluster. 
 In order to work efficiently, we split into two sub-teams: a front-end group focused on the user interface and a back-end group dedicated to model data processing.  
 
-
+\section*{Our work}
 % ----------------------- TODO ---------------------------
-% Hier werden die Aufgaben/Lösungen eingetragen:
+% Dokumentiert hier, welche Aufgaben ihr in diesem Projekt übernommen habt.
+
 \subsection*{Leonie Rämisch}
 \subsubsection*{Introduction}
 In the following, I will explain how I contributed to our team project "Motion Style Transfer with Drag-Based Editing". For the first half of our project, the Aitviewer group worked closely together and had many meetings throughout each week in which we worked together on the tasks. 
@@ -96,16 +97,30 @@ The goal was to make the change of the mesh and skeleton colour possible if a fr
 We added a base colour, a light green, that will be applied on the mannequin if a frame is marked as keyframe. This led to the bug that the colour wheel within the UI couldn't be used anymore to change the colour of the untouched frames but this bug was fixed and now the colour can be changed as pleased again.
 
 \subsubsection*{Prompts and their Export}
-In the end we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again, but it works now just fine.  
+In the end, we brainstormed about possible prompt features and how we distribute them within the group. My task was to make sure that the prompts will be added to the exported sequence. This meant that the export\_to\_AMASS-Method needed to be changed again, but it works now just fine.  
 
 
 \subsection*{Helene Pfahler}
-I contributed to this project by working on the Aitviewer as well. Additionally, I wrote reports for our weekly team meetings.
+I contributed to this project by working on various features of the user interface as well. In Aitviewer, our team successfully implemented the functionality to import AMASS files, which included the ability to save the edited files and effectively utilize text prompts to facilitate motion sequences.  
+Additionally, I took the initiative to compose detailed reports for our weekly team meetings, which served to document our progress and outline the key points of discussion for the benefit of all team members.  
 
-\subsubsection*{... to be continued ...}  
+\subsubsection*{Setup of the UI}  
+First, we set up the Aitviewer environment on our devices, which turned out to be a small challenge on its own. The Aitviewer tools by default require a GPU, which not all of our computers have, so we had to work our way around that issue. I contributed to the setup of the software by helping Joao with the rather complicated installation process.
+
+\subsubsection*{export\_to\_AMASS method and keyframes}
+For this project, we used the provided motion data in the AMASS format. Therefore, a necessary step was to code a method enabling us to save a motion in this format after editing it. The saved data also contained an array of keyframe indices, indicating which frames had been edited. As explained by Leonie, the requirements of the model to the specific format of the output data changed multiple times. This method was coded collectively within the UI sub-team.  
+
+\subsubsection*{Example inputs}
+I created example files, working as input for the model. For this, I used data in the 'Female Gestures' folder, which I edited to hit specific corner cases. One file contained only one keyframe in the middle of the motion. The second file had the very last frame be a keyframe. In my third file, two frames far apart from each other were edited. This data was then handed to the model sub-group.
+
+\subsubsection*{View original motion}
+To further enhance the user interface, I added a new feature. It contains a button enabling the user to view the original, unedited motion directly within the Aitviewer. To make this work, a new state variable to track if you're currently viewing the edited or the original motion was added. If this variable is true, the position and orientation of the joints are set back to their unedited state. This also required the original joints to be included in the exported (and imported) files, so if a motion is edited multiple times, the original motion remains the same throughout.
+
+\subsubsection*{Usage of prompts}
+Because our sub-group was right on schedule, we were even able to add text prompts to our motion files. These prompts can now be viewed, added, and deleted directly within the UI. My contribution to this was editing the export\_to\_AMASS method so the saved files also contained the text prompts associated with this motion.
 
 
-\subsection*{Possible future additions}
+\section*{Possible future additions}
 Future improvements could include creating an automatic interface between the UI and the model to eliminate manual data transfer of the input/output of the model from/into the UI. The UI could also be modified to support the direct loading of exported sequences directly within Aitviewer, removing the need for terminal use. Another possible feature would include enabeling the deletion of keyframes within the UI. Additionally, in the future, one could work on showing the exact changes that the model applied within the UI, making use of the "model indices". Lastly, to make full use of the model's capacities, a further exploration of the prompts would be a possible future enhancement.
 
 \end{document}
