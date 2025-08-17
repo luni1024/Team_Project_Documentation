@@ -78,7 +78,7 @@ In this section, I will summarize my contributions to the team project as the he
 \subsubsection*{Setting up aitviewer}
 The first 2 weeks, I worked on finding out how to set up aitviewer and using it with the SMPLH + AMASS body models which required many sudo packages to be installed and minor changes in the aitviewer code.\\
 I also helped the others to set up aitviewer on their devices (which do not have access to a GPU). For that we had to change a line in the viewer.py file of the code to distinguish between devices that have cuda support (have cuda installed) and devices that don't. In the first few weeks that version was different between the members of the UI group, but we found a way to make it work and still all have the same version of the code.\\\\
-In the end, we decided it would be beneficial to write a guide on how to set up aitviewer. I wrote one and it should cover all important steps and packages needed to make aitviewer successfully run (we sadly haven't gotten around to testing the guide out, since we all already made it work at that point).
+In the end, we decided it would be beneficial to write a guide on how to set up aitviewer (guide.md). I wrote one and it should cover all important steps and packages needed to make aitviewer successfully run (we sadly haven't gotten around to testing the guide out, since we all already made it work at that point).
 
 \subsubsection*{Export for model group}
 When we all could start working on the project, we started working on exporting files that the model group could work with. We started by adding the keyframes to the npz file and testing those files. For that, I wrote a simple script which loads those exported files (which ultimately became a prototype for the file loader by Joao).\\
