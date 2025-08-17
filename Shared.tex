@@ -1,4 +1,4 @@
-% ----------------------- TODO ---------------------------
+ % ----------------------- TODO ---------------------------
 
 % Diese Daten müssen einmalig pro Vorlesung angepasst werden:
 \newcommand{\COURSE}{Drag-Your-Motion Team Project}
@@ -29,6 +29,7 @@
 \usepackage{listings}
 \usepackage{fancybox}
 \usepackage{tikz}
+\usepackage{todonotes}
 
 \input kvmacros
 
@@ -55,7 +56,7 @@
     {Stefan Bochinger, ???}\\
     {Leonie Rämisch, 6504373}\\
     {Helene Pfahler, 6723015}\\
-    {Joao, ???}\\
+    {Joao Espirito Santo Azevedo, 6787574}\\
     {Jan, ???}\\
     {Jonathan, ???}
   \end{center}
@@ -115,6 +116,47 @@ I created example files, working as input for the model. For this, I used data i
 
 \subsubsection*{View original motion}
 To further enhance the user interface, I added a new feature. It contains a button enabling the user to view the original, unedited motion directly within the Aitviewer. To make this work, a new state variable to track if you're currently viewing the edited or the original motion was added. If this variable is true, the position and orientation of the joints are set back to their unedited state. This also required the original joints to be included in the exported (and imported) files, so if a motion is edited multiple times, the original motion remains the same throughout.
+
+\subsection*{Joao Espirito Santo Azevedo}
+\subsubsection*{Introduction}
+In this Section I aim to report my contributions to this team project.\\
+
+\subsubsection*{Personal difficulties}
+For the first few weeks of this project I was involved in the model sub-group, participating in the setup of the cluster on which the AI runs.\\
+
+I soon found this task to be somewhat outside my area of expertise and chose to switch over to the UI sub-group accordingly. Thankfully, this transition went smoothly since Jan simultaneously joined the model sub-group instead and the UI sub-group was very helpful in introducing me to the functioning of the Aitviewer programme.\\
+\\
+A further difficulty I had in the course of this project were two weeks where my laptop had technical problems with its fans and I was forced to try and relocate all my university work and such onto my older, significantly slower, Laptop.
+
+\subsubsection*{Filename-Input Loader}
+\subsubsection*{--Context}
+In the beginning of this project, if we wanted to load a specific file with an animation onto the Aitviewer, we had to change the corresponding String in the `load\_AMASS.py`-file. After a few weeks in the UI sub-group, it became apparent that this was an annoying and inconvenient task/method.
+\\
+After some planning/brainstorming among us I assumed the task to handle the creation of a similar python-file (a loader, if you will), which allowed the user to specify which file should be loaded into the Aitviewer at the time of executing the file.
+
+\subsubsection*{--how it works}
+The file I worked on, `load\_export\_AMASS.py` relies heavily on the os-library of python.
+To use this loader, it suffices to call the command `python load\_export\_AMASS.py` in the WSL/Linux Terminal while inside the `examples`-directory of the github repository.
+
+\todo[color=grey!8, inline, bordercolor=white]{This command should work in any directory with a serving python-environment, though, so long as the `load\_export\_AMASS.py`-part of it is expanded with the corresponding relative path to it. (i.e. `../examples/load\_export\_AMASS.py`).}
+\\
+After a little while, the loader should present an indexed list of the contents within the `export`-folder of the local repository. At the same time, the loader should prompt the user to input a number specifying which of the files in this folder should be opened. Upon typing the number and pressing `Enter`, the loader should $"$do its magic$"$.
+
+\subsubsection*{--Possible future problems}
+If one were to encounter problems while working on this loader, these could be due to some paths not being relative or absolute; some missing/incorrect permissions of certain folders; incorrect formats of the files to open (this problem would probably not be fixable in the loader, but rather in the `SMPLSequence.py`-file) and/or problems with indexing/handling the list of directories.
+
+\subsubsection*{Example Inputs}
+As mentioned before, the UI sub-team worked together to create a couple animations to use as corner-case tests for the software.\\
+The ones i created were all based on the `Female1 Walking` Animation. One of these focused on having multiple frames changed (ca. 15), spread evenly throughout the whole animation, the other had no changes and the last had changes applied to only the 10th first and the 10th last frames.
+
+\subsubsection*{Prompts}
+\subsubsection*{--Context}
+Many of the animations we were given to open in the Aitviewer included prompts, which described the actions performed by the character as well as other information. Our task was to incorporate a way to view these in the Aitviewer.
+
+\subsubsection*{--How it works}
+The prompts are given as a multidimensional array. Every entry in its first dimension is a prompt of the animation. These, in turn, are also arrays.\\
+To view these, we expanded the Aitviewer interface a bit further in the `SMPLSequence.py`-file by creating a respective interface therein. One can interact with it on the Aitviewer by going onto the `Editor`-window, clicking on the `AMASS Running`-dropdown menu and then on its `Prompts`-Button.\\
+This interface allows the user to individually view only the current prompts as well as all prompts. Additionally, the user is welcome to add or delete prompts, and specify their timespans.
 
 \subsubsection*{Usage of prompts}
 Because our sub-group was right on schedule, we were even able to add text prompts to our motion files. These prompts can now be viewed, added, and deleted directly within the UI. My contribution to this was editing the export\_to\_AMASS method so the saved files also contained the text prompts associated with this motion.
