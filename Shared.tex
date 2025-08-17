@@ -53,7 +53,7 @@
 \def\header#1#2{
   \begin{center}
     {\Large Project Documentation}\\
-    {Stefan Bochinger, ???}\\
+    {Stefan Bochinger, 6347279}\\
     {Leonie Rämisch, 6504373}\\
     {Helene Pfahler, 6723015}\\
     {Joao Espirito Santo Azevedo, 6787574}
@@ -64,12 +64,39 @@
 \header{Nr. \NUMBER}{\DEADLINE}
 
 \section*{About this project}
-The objective of this project was to use artificial intelligence for drag-based editing of human animation. For this, we based our work on an interface called Aitviewer and a TCML cluster. 
+The objective of this project was to use machine learning for drag-based editing of human animation. For this, we based our work on an interface called Aitviewer and a TCML cluster. 
 In order to work efficiently, we split into two sub-teams: a front-end group focused on the user interface and a back-end group dedicated to model data processing.  
 
 \section*{Our work}
 % ----------------------- TODO ---------------------------
 % Dokumentiert hier, welche Aufgaben ihr in diesem Projekt übernommen habt.
+
+\subsection*{Stefan Bochinger}
+\subsubsection*{Introduction}
+In this section, I will summarize my contributions to the team project as the head of the UI group. My duties as such were, next to working on the code, planning the tasks for each week and directing in which way we would integrate certain features in the UI (e.g by testing and reviewing the code).
+
+\subsubsection*{Setting up aitviewer}
+The first 2 weeks, I worked on finding out how to set up aitviewer and using it with the SMPLH + AMASS body models which required many sudo packages to be installed and minor changes in the aitviewer code.\\
+I also helped the others to set up aitviewer on their devices (which do not have access to a GPU). For that we had to change a line in the viewer.py file of the code to distinguish between devices that have cuda support (have cuda installed) and devices that don't. In the first few weeks that version was different between the members of the UI group, but we found a way to make it work and still all have the same version of the code.\\\\
+In the end, we decided it would be beneficial to write a guide on how to set up aitviewer. I wrote one and it should cover all important steps and packages needed to make aitviewer successfully run (we sadly haven't gotten around to testing the guide out, since we all already made it work at that point).
+
+\subsubsection*{Export for model group}
+When we all could start working on the project, we started working on exporting files that the model group could work with. We started by adding the keyframes to the npz file and testing those files. For that, I wrote a simple script which loads those exported files (which ultimately became a prototype for the file loader by Joao).\\
+In further weeks, we spent a lot of time creating a new method called export\_to\_AMASS() and altering it to fulfill the requirements of the model group and including our new features in the export. The method exports the files in aitviewer to files in AMASS format to give the model group all important information about the sequence. For each altering of the method, we also had to change the method loading amass files accordingly.\\\\
+I spent a lot of time working on including the joints of the hands in the export which ultimately wasn't needed by the model group. In the end, I also decided to make the method flip the sequences to y\_up if they were set to z\_up.
+
+\subsubsection*{Example inputs}
+I, as the others in the UI group, created 2 example sequences for the model when we were done with the export function at the time. Sadly, these sequences aren't up to date anymore, we did some more work on the export method since. I also created some simpler example sequences in the end when I started experimenting on the model.
+
+\subsubsection*{Keyframe Highlighting}
+Together with Leonie, I worked on the highlighting of the keyframes (and resolving the bugs it caused in the beginning). At first the code for the highlighting wasn't in the smpl.py file itself, but in the end I found a way to refactor it so it is in the smpl.py file, making the code more cohesive and the feature easier to find in the code.
+
+\subsubsection*{Prompt feature}
+For the prompt feature, I added the JSON file with the prompts to the code base and made sure that it gets loaded and the prompts corresponding to the right AMASS file are given as a new attribute for SMPL sequences. I also added a prompt mode in the UI where you can see these prompts. The first one shown is open by default, the rest are retractable. The user can choose between only seeing prompts within the current time stamp or all prompts of the sequence. I also added buttons for deleting prompts and adding custom prompts, which Joao then implemented.
+
+\subsubsection*{Work on the model}
+As mentioned before, I flipped the sequences in the viewer itself, to make sure this is not the reason why the model wouldn't work. With this change, I created some simple example inputs and did a lot of experimenting on the model group's code. I changed the inpainting mask so the model would only generate the 10 frames before a key frame and the 10 frames after. Now the model was generating the right frames, but the motion was still spinning in the generated frames. The solution I ultimately found was to also set the inpainting mask to True for the first 5 features (rotation around the y axis, linear velocity on the xz plane and root height) which fixed the spinning and weird movement around the xz plane (because it just keeps those feature unchanged instead of generating). I also changed the feature mode of the inpainting mask to pos\_rot instead of pos\_rot\_vel (positions, rotations, velocities) because I found the generated motion to be way smoother that way. Maybe there could still be some experimenting on it with different transition lengths (how many frames get generated per keyframe) and different reconstruction weights to achieve a better output.\\\\
+There are still some issues with the model, especially that it takes very long until the generation process is done and that there's a cutoff after 196 frames (if frame 190 is a keyframe, frame 180-189 get generated, but only 191-196 instead of 191-200). Both of those issues could maybe be solved by giving the model only the frames it should observe and generate in separate batches. Also keyframes currently only work in 10-frame-intervalls and prompts don't get used at all. However, to fix those issues, large parts of the code would have to be reworked, so I didn't work further on it.
 
 \subsection*{Leonie Rämisch}
 \subsubsection*{Introduction}
@@ -161,7 +188,7 @@ Because our sub-group was right on schedule, we were even able to add text promp
 
 
 \section*{Possible future additions}
-Future improvements could include creating an automatic interface between the UI and the model to eliminate manual data transfer of the input/output of the model from/into the UI. The UI could also be modified to support the direct loading of exported sequences directly within Aitviewer, removing the need for terminal use. Another possible feature would include enabeling the deletion of keyframes within the UI. Additionally, in the future, one could work on showing the exact changes that the model applied within the UI, making use of the "model indices". Lastly, to make full use of the model's capacities, a further exploration of the prompts would be a possible future enhancement.
+Future improvements could include creating an automatic interface between the UI and the model to eliminate manual data transfer of the input/output of the model from/into the UI. The UI could also be modified to support the direct loading of exported sequences directly within Aitviewer, removing the need for terminal use. Another possible feature would include enabling the deletion of keyframes within the UI. Additionally, in the future, one could work on showing the exact changes that the model applied within the UI, making use of the "model indices", e.g. by also highlighting those frames in a different color. Lastly, to make full use of the model's capacities, a further exploration of the prompts on the model's side would be a possible future enhancement.
 
 \end{document}
 %%% Local Variables:
